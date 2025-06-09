@@ -169,3 +169,75 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
     });
+    // --- AI Chatbot functionality with History and Context ---
+    const chatSendBtn = document.getElementById('chat-send-btn');
+    const chatInputField = document.getElementById('chat-input-field');
+    const chatMessagesContainer = document.getElementById('chat-messages');
+
+    // 1. Provide website context in a system prompt
+    const praxisContext = `
+      You are the Praxis Assistant, a helpful AI chatbot for the Praxis Craftsmanship Community website.
+      Your goal is to answer user questions based on the following information about Praxis. Be friendly and helpful.
+
+      - **What is Praxis?** Praxis is a community-driven platform for preserving and sharing the art of craftsmanship. It connects master artisans with learners.
+      - **Mission:** To reverse the trend of disposable, mass-produced goods by teaching traditional skills.
+      - **For Learners:** Praxis offers "Trade-in-a-Box" kits with tools, materials, and video tutorials for crafts like leatherworking.
+      - **For Artisans:** Praxis provides a marketplace to sell high-quality, handcrafted goods. Artisans go through a certification process to ensure quality.
+      - **Products:**
+        1.  **Trade-in-a-Box Kits:** Comprehensive kits for learning crafts.
+        2.  **Artisan Marketplace:** A place to buy durable, beautifully crafted goods.
+        3.  **Repair & Restoration:** A service to connect users with artisans for quality repairs of items like shoes and clothing.
+      - **Founders:** Solomon Nderitu (CEO & Co-Founder) and Benson Mose (Head of Artisan Relations).
+      - **FAQs:** Users can get started with a Trade-in-a-Box kit. Artisans are certified through a portfolio and skill review. Repairs are handled by submitting photos for a quote online.
+    `;
+
+    // 2. Create an array to store the conversation history
+    let conversationHistory = [
+      { role: 'system', content: praxisContext }
+    ];
+
+    const handleSendMessage = async () => {
+      const messageText = chatInputField.value.trim();
+      if (messageText) {
+        // Add user message to UI
+        const userMessageDiv = document.createElement('div');
+        userMessageDiv.className = 'message user-message';
+        userMessageDiv.textContent = messageText;
+        chatMessagesContainer.appendChild(userMessageDiv);
+        chatInputField.value = '';
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+
+        // Add user message to history
+        conversationHistory.push({ role: 'user', content: messageText });
+
+        try {
+          // 3. Send the entire conversation history to the AI
+          const response = await puter.ai.chat(conversationHistory);
+
+          // Add AI response to history
+          conversationHistory.push({ role: 'assistant', content: response });
+
+          // Display AI response in the UI
+          const botMessageDiv = document.createElement('div');
+          botMessageDiv.className = 'message bot-message';
+          botMessageDiv.textContent = response;
+          chatMessagesContainer.appendChild(botMessageDiv);
+          chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+
+        } catch (error) {
+          console.error('Error getting AI response:', error);
+          const errorMessageDiv = document.createElement('div');
+          errorMessageDiv.className = 'message bot-message';
+          errorMessageDiv.textContent = 'Sorry, I seem to be having trouble connecting. Please try again later.';
+          chatMessagesContainer.appendChild(errorMessageDiv);
+          chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+      }
+    };
+
+    chatSendBtn.addEventListener('click', handleSendMessage);
+    chatInputField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSendMessage();
+      }
+    });
