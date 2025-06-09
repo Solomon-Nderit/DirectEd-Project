@@ -1,0 +1,110 @@
+ /* Base navbar styles */
+    nav {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      position: relative;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      justify-content: space-between;
+    }
+
+    /* Toggle button (hamburger) */
+    #menu-toggle {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: auto;
+    }
+
+    /* Container for all links/buttons */
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex: 1;
+      justify-content: space-between;
+      margin-left: 20px;
+    }
+
+    .left-links,
+    .right-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .left-links a,
+    .right-links a,
+    .right-links button {
+      margin-left: 20px;
+    }
+
+    /* Branding/title */
+    #navbar-title {
+      color: #B06548;
+      font-size: 30px;
+      font-style: italic;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    /* Link styles */
+    .navbar-text {
+      color: #302f2d;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .navbar-text:hover {
+      color: #B06548;
+    }
+
+    /* Sales button */
+    #sales-button {
+      background-color: #B06548;
+      color: #141414;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 2px;
+      font-size: 16px;
+      cursor: pointer;
+      height: 36px;
+    }
+
+    /* Responsive: small screens */
+    @media (max-width: 768px) {
+      #menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .left-links,
+      .right-links {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .left-links a,
+      .right-links a,
+      .right-links button {
+        margin: 10px;
+        width: calc(100% - 20px);
+        text-align: center;
+      }
+    }
