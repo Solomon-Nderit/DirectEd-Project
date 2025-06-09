@@ -16,6 +16,10 @@
       justify-content: space-between;
     }
 
+    .hero-section{
+      background-image: url('assets/images/Praxis\ Visual.png') ;
+      height:40%
+    }
     /* Toggle button (hamburger) */
     #menu-toggle {
       display: none;
@@ -79,6 +83,37 @@
       height: 36px;
     }
 
+    /* Title container for main page */
+    .title-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+    }
+    .center-title {
+      font-size: 3rem;
+      color: #f5e8e3;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    #hero-text {
+      color: #f5e8e3;
+      font-size: 1.2rem;
+      text-align: center;
+      max-width: 80%;
+      margin-top: 1rem;
+    }
+
+    #hero-button {
+      background-color: #1f1d1c;
+      color:white;
+      opacity: 60%;
+      width:30%;
+      height:3rem;
+    }
     /* Responsive: small screens */
     @media (max-width: 768px) {
       #menu-toggle {
@@ -120,11 +155,7 @@
 <body>
   <nav>
     <p id="navbar-title">Praxis</p>
-
-    <!-- Hamburger menu button (mobile only) -->
     <button id="menu-toggle" aria-label="Toggle menu">☰</button>
-
-    <!-- Navigation links and buttons -->
     <div class="nav-links" id="navbar-links">
       <div class="left-links">
         <a href="#" class="navbar-text">Products</a>
@@ -138,7 +169,22 @@
     </div>
   </nav>
 
-  <main>
+  <main class="hero-section">
+    
+    <div class="title-container">
+      <h1 class="center-title">Praxis</h1>
+      <p id="hero-text">
+        Learn the skills to create with your hands, discover goods made with soul, and give your most
+        cherished posessions a second life through our guild of master artisans.
+      </p>
+
+      <button id="hero-button" >
+        Learn More
+      </button>
+
+    </div>
+
+      
   </main>
 
   <script>
