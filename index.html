@@ -3,287 +3,1187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Praxis</title>
+  <title>Praxis | Craftsmanship Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Base navbar styles */
+    /* Base styles */
+    :root {
+      --primary: #B06548;
+      --secondary: #302f2d;
+      --light: #f5e8e3;
+      --accent: #ddbfb4;
+      --dark: #1f1d1c;
+      --body-bg: #f9f6f4;
+      --card-bg: #ffffff;
+      --text-color: var(--secondary);
+      --card-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1.5px 4px rgba(176,101,72,0.08);
+      --transition: all 0.3s ease;
+    }
+
+    body.dark-theme {
+      --primary: #c87a5c;
+      --secondary: #d1ccc7;
+      --light: #f5e8e3;
+      --accent: #4a4846;
+      --dark: #1f1d1c;
+      --body-bg: #1a1a1a;
+      --card-bg: #2c2c2c;
+      --text-color: #e1e1e1;
+      --card-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--body-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Navbar */
     nav {
       display: flex;
       align-items: center;
-      padding: 10px 20px;
-      background: #fff;
-      position: relative;
+      justify-content: space-between;
+      padding: 10px 25px;
+      background: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 1000; /* Increased z-index for menu */
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      justify-content: space-between;
+      transition: background-color 0.3s;
+      height: 70px; /* Set a fixed height */
     }
 
-    .hero-section{
-      background-image: url('assets/images/Praxis\ Visual.png') ;
-      height:40%
-    }
-    /* Toggle button (hamburger) */
-    #menu-toggle {
-      display: none;
-      font-size: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-left: auto;
-    }
-
-    /* Container for all links/buttons */
-    .nav-links {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex: 1;
-      justify-content: space-between;
-      margin-left: 20px;
-    }
-
-    .left-links,
-    .right-links {
-      display: flex;
-      align-items: center;
-    }
-
-    .left-links a,
-    .right-links a,
-    .right-links button {
-      margin-left: 20px;
-    }
-
-    /* Branding/title */
     #navbar-title {
-      color: #B06548;
-      font-size: 30px;
+      color: var(--primary);
+      font-size: 28px;
       font-style: italic;
       font-weight: bold;
-      margin: 0;
+    }
+    
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
-    /* Link styles */
     .navbar-text {
-      color: #302f2d;
+      color: var(--text-color);
       text-decoration: none;
       font-size: 16px;
-    }
-    .navbar-text:hover {
-      color: #B06548;
+      transition: var(--transition);
     }
 
-    /* Sales button */
+    .navbar-text:hover {
+      color: var(--primary);
+    }
+
     #sales-button {
-      background-color: #B06548;
-      color: #141414;
+      background-color: var(--primary);
+      color: white;
       border: none;
-      padding: 6px 12px;
-      border-radius: 2px;
+      padding: 8px 16px;
+      border-radius: 4px;
       font-size: 16px;
       cursor: pointer;
-      height: 36px;
+      transition: var(--transition);
     }
 
-    /* Title container for main page */
-    .title-container {
+    #sales-button:hover {
+      background-color: #9a5540;
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger Menu Button */
+    #hamburger-btn {
+        display: none; /* Hidden by default */
+        background: none;
+        border: none;
+        color: var(--primary);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Hero section */
+    .hero-section {
+      background-image: url(assets/images/Praxis\ Visual.png);
+      height: 85vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100vh;
-    }
-    .center-title {
-      font-size: 3rem;
-      color: #f5e8e3;
-      font-weight: bold;
-      margin: 0;
+      text-align: center;
+      padding: 0 20px;
     }
 
-    .subtitle-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: top;
-      align-items: center;
-      width: 100%;
-      height: 30%;
+    .center-title {
+      font-size: 4rem;
+      color: var(--light);
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
     }
 
     #hero-text {
-      color: #f5e8e3;
-      font-size: 1.2rem;
-      text-align: center;
-      max-width: 80%;
-      margin-top: 1rem;
+      color: var(--light);
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      max-width: 800px;
     }
 
     #hero-button {
-      background-color: #1f1d1c;
-      color:white;
-      opacity: 60%;
-      width:30%;
-      height:3rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
     }
 
-    .subtitle-text{
-      width:90%;
+    #hero-button:hover {
+      background-color: #9a5540;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
-    .subtitle{
-      color: #302f2d;
+
+    /* Section common styles */
+    .section {
+      padding: 80px 5%;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 60px;
+      color: var(--text-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+    }
+
+    /* About section */
+    .about-us {
+      background-color: var(--accent);
+      transition: background-color 0.3s;
+    }
+
+    .about-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      text-align: center;
+      line-height: 1.8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .about-logo {
+        max-width: 120px;
+        margin-bottom: 20px;
+        opacity: 0.8;
+    }
+
+    /* Audience toggle */
+    .audience-toggle {
+      background-color: var(--card-bg);
+      text-align: center;
+      padding: 60px 5%;
+    }
+
+    .toggle-container {
+      display: inline-flex;
+      background: var(--body-bg);
+      border-radius: 50px;
+      padding: 5px;
+      margin: 30px 0;
+      box-shadow: var(--card-shadow);
+    }
+
+    .toggle-btn {
+      padding: 12px 40px;
+      border-radius: 50px;
+      border: none;
+      background: transparent;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-color);
+    }
+
+    .toggle-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+
+    .audience-content {
+      max-width: 800px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .audience-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Products section */
+    .product-section {
+      background-color: var(--body-bg);
+    }
+
+    .carousel-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .product-list {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) var(--accent);
+    }
+
+    .product-list::-webkit-scrollbar {
+      height: 8px;
+    }
+    .product-list::-webkit-scrollbar-thumb {
+        background-color: var(--primary);
+        border-radius: 10px;
+    }
+    .product-list::-webkit-scrollbar-track {
+        background-color: var(--accent);
+    }
+
+    .carousel-card {
+      scroll-snap-align: start;
+      flex: 0 0 calc(33.333% - 20px);
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: var(--transition);
+      min-height: 450px;
+    }
+
+    .carousel-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(176,101,72,0.15);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+
+    .card-description {
+      color: var(--text-color);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* FAQ section */
+    .faq-section {
+      background-color: var(--accent);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--card-bg);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-question {
+      padding: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+    }
+
+    .faq-item.active .faq-answer {
+      padding-bottom: 20px;
+      max-height: 500px;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Team section */
+    .team-section {
+      background-color: var(--card-bg);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-card {
+      background: var(--card-bg);
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .team-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .team-info {
+      padding: 25px;
+    }
+
+    .team-name {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .team-role {
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .team-bio {
+      font-size: 1rem;
+    }
+
+    /* Brand bar */
+    .brand-bar {
+      background-color: var(--primary);
+      padding: 30px 0;
+      overflow: hidden;
+    }
+
+    .slogan-container {
+      display: flex;
+      animation: scroll 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .slogan {
+      color: white;
       font-size: 2rem;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
-    .about-us{
-      background-color: #ddbfb4;
+      font-weight: 600;
+      margin: 0 50px;
+      flex-shrink: 0;
     }
 
-  #title-and-logo {
-  display: flex;
-  flex-direction: row; 
-  justify-content: center; 
-  align-items: center;     
-  width: 100%;
-  padding: 40px 0 60px 0; 
-}
+    /* Chatbot section */
+    .chatbot-section {
+      background-color: var(--body-bg);
+      padding: 80px 5%;
+    }
 
+    .chatbot-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
 
-#title-and-logo h2 {
-  font-size: 1.5rem;
-  color: #302f2d;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
 
+    .chat-messages {
+      height: 300px;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-#praxis-logo {
-  width: 10%;
-  height: auto;
-  margin-left: 1rem; 
-}
+    .message {
+      max-width: 80%;
+      padding: 12px 18px;
+      border-radius: 18px;
+      animation: fadeIn 0.3s ease;
+    }
 
+    .bot-message {
+      background: var(--accent);
+      color: var(--text-color);
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+    }
 
-    /* Responsive: small screens */
+    .user-message {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 20px;
+      border-top: 1px solid var(--accent);
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      font-size: 1rem;
+      background: var(--body-bg);
+      color: var(--text-color);
+    }
+
+    .chat-input button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chat-input button:hover {
+      background: #9a5540;
+    }
+
+    /* Contact section */
+    .contact-section {
+      background-color: var(--card-bg);
+    }
+
+    .contact-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    
+    body.dark-theme .contact-container {
+        box-shadow: none;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: var(--body-bg);
+      color: var(--text-color);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(176, 101, 72, 0.2);
+    }
+
+    .form-group textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+      background: #9a5540;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .error {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #bbb;
+      padding: 50px 5% 30px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-column h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: var(--light);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #bbb;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--light);
+      padding-left: 5px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+    }
+
+    .visitor-count {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 5px 15px;
+      border-radius: 30px;
+      margin-top: 10px;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: var(--primary);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-3px) rotate(20deg);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .carousel-card {
+        flex: 0 0 calc(50% - 15px);
+      }
+    }
+
     @media (max-width: 768px) {
-      #menu-toggle {
-        display: block;
-      }
-
+      .center-title { font-size: 3rem; }
+      .section { padding: 60px 5%; }
+      .section-title { font-size: 2rem; }
+      .carousel-card { flex: 0 0 calc(80% - 15px); }
+      .toggle-btn { padding: 10px 25px; font-size: 1rem; }
+      .slogan { font-size: 1.5rem; }
+      .chatbot-container { margin: 0 10px; }
+      
+      /* --- Hamburger Menu Styles --- */
       .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: #fff;
         position: absolute;
-        top: 60px;
+        top: 70px; /* Below navbar */
         left: 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .left-links,
-      .right-links {
+        width: 100%;
+        background-color: var(--card-bg);
         flex-direction: column;
         align-items: center;
+        gap: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+        max-height: 0; /* Initially hidden */
+        transition: max-height 0.4s ease-in-out;
+      }
+
+      .nav-links.is-open {
+        max-height: 500px; /* Reveal the menu */
+      }
+
+      .nav-links a, .nav-links button {
         width: 100%;
-      }
-
-      .left-links a,
-      .right-links a,
-      .right-links button {
-        margin: 10px;
-        width: calc(100% - 20px);
         text-align: center;
+        padding: 20px;
+        border-bottom: 1px solid var(--accent);
       }
 
-      #title-and-logo {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 60vh;
+      #sales-button {
+        border-radius: 0;
       }
+      
+      #hamburger-btn {
+        display: block; /* Show the button on mobile */
+      }
+      /* --- End Hamburger Menu Styles --- */
+    }
+
+    @media (max-width: 576px) {
+      .center-title { font-size: 2.5rem; }
+      #hero-text { font-size: 1.1rem; }
+      .carousel-card { flex: 0 0 90%; }
+      .slogan { font-size: 1.2rem; margin: 0 20px; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .social-links { justify-content: center; }
     }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
   <nav>
     <p id="navbar-title">Praxis</p>
-    <button id="menu-toggle" aria-label="Toggle menu">☰</button>
-    <div class="nav-links" id="navbar-links">
-      <div class="left-links">
-        <a href="#" class="navbar-text">Products</a>
-        <a href="#" class="navbar-text">Resources</a>
-        <a href="#" class="navbar-text">Pricing</a>
-      </div>
-      <div class="right-links">
-        <a href="#" class="navbar-text">Post a job for free</a>
+    <div class="nav-links" id="navbar-menu">
+        <a href="#products" class="navbar-text">Products</a>
+        <a href="#audience" class="navbar-text">Resources</a>
+        <a href="#team" class="navbar-text">Team</a>
+        <a href="#contact" class="navbar-text">Contact</a>
         <button id="sales-button">Contact Sales</button>
-      </div>
     </div>
+    <button id="hamburger-btn">
+        <i class="fas fa-bars"></i>
+    </button>
   </nav>
-
-  <main class="hero-section">
-    
-    <div class="title-container">
+  
+  <!-- The rest of your body content remains the same... -->
+  <section class="hero-section">
       <h1 class="center-title">Praxis</h1>
       <p id="hero-text">
         Learn the skills to create with your hands, discover goods made with soul, and give your most
-        cherished posessions a second life through our guild of master artisans.
+        cherished possessions a second life through our guild of master artisans.
       </p>
-
-      <button id="hero-button" >
-        Learn More
-      </button>
-
-    </div>
-
-      
-  </main>
-
-  <main class="about-us">
-    <div class="subtitle-container">
-      <h2 class="subtitle">
-        About Us
-      </h2>
-      <p class="subtitle-text">
+      <button id="hero-button">Learn More</button>
+  </section>
+  <section id="about" class="section about-us">
+    <h2 class="section-title">About Us</h2>
+    <div class="about-content">
+        <img src="https://img.icons8.com/ios/100/null/chisel-and-hammer.png" alt="Craftsmanship Icon" class="about-logo"/>
+      <p>
         Praxis is a community-driven platform dedicated to preserving and sharing the art of craftsmanship. 
         We connect master artisans with those eager to learn, repair, and create, ensuring that traditional skills are passed down through generations.
-       The idea for Praxis was born from a simple, frustrating experience: trying to get a beloved pair of leather boots resolved and discovering the last local cobbler had retired. This personal search revealed a much larger problem: foundational craft skills are disappearing, leaving us reliant on a culture of disposable, mass-produced goods that fill our landfills. We saw an opportunity not just to mourn this loss, but to reverse it. Praxis was created to build a bridge between the wisdom of master craftspeople and a new generation eager to create, repair, and own things with meaning, ensuring these essential skills don't just survive, but thrive.
-
+      </p>
+      <p>
+        The idea for Praxis was born from a simple, frustrating experience: trying to get a beloved pair of leather boots resoled and discovering the last local cobbler had retired. This personal search revealed a much larger problem: foundational craft skills are disappearing, leaving us reliant on a culture of disposable, mass-produced goods that fill our landfills. We saw an opportunity not just to mourn this loss, but to reverse it.
       </p>
     </div>
-
-    <div class="subtitle-container">
-      <h2 class="subtitle">
-        What do we do?
-    </h2>
-    <p class="subtitle-text">
-       <strong>Praxis</strong> is a comprehensive ecosystem designed to combat trhowaway culture by reviving the world of skilled
-       craft. We empower a new generation of artisans through three core offerings: "Trade-in-a-Box" kits that provide the tools and
-       master-led training to learn a craft; a Certified Artisan Marketplace where they can sell their durable, high-quality goods; and a "Repair & Restoration"
-       service that connects their skills with customers needing to mend cherished items. By seamlessly integratiing education, commerce, and service, Praxis creates
-       a sustainable community built on the value of making, owning, and preserving things that last.
-    </p>
+  </section>
+  <section id="audience" class="section audience-toggle">
+    <h2 class="section-title">For Our Community</h2>
+    <div class="toggle-container">
+      <button class="toggle-btn active" data-audience="learners">For Learners</button>
+      <button class="toggle-btn" data-audience="artisans">For Artisans</button>
     </div>
-
-    <div id="title-and-logo">
-      <h2>
-        Praxis
-      </h2>
-      <img src="assets/images/Praxis Logo.png" alt="Logo" id="praxis-logo" >
+    <div class="audience-content active" id="learners-content">
+      <h3>Start Your Craft Journey</h3>
+      <p>
+        As a learner at Praxis, you'll gain access to our comprehensive Trade-in-a-Box kits, expert-led workshops, and a supportive community of fellow craft enthusiasts. Whether you're starting from scratch or looking to refine your skills, we provide the tools and guidance to help you create beautiful, lasting pieces with your own hands.
+      </p>
     </div>
-  </main>
+    <div class="audience-content" id="artisans-content">
+      <h3>Join Our Master Artisans</h3>
+      <p>
+        As an artisan at Praxis, you'll gain access to our premium marketplace to showcase and sell your creations to an appreciative audience. We provide marketing support, business tools, and a community of like-minded craftspeople to help you grow your practice.
+      </p>
+    </div>
+  </section>
+  <section id="products" class="section product-section">
+    <h2 class="section-title">Our Products</h2>
+    <div class="carousel-container">
+      <div class="product-list">
+        <div class="carousel-card">
+          <h3 class="card-title">Trade-in-a-Box Kits</h3>
+          <img src="assets/images/kit image.png" alt="Leatherworking tools" class="card-image">
+          <p class="card-description">
+            Comprehensive, high-quality kits for learning crafts like leatherworking. Each includes professional tools, materials, and access to HD video tutorials.
+          </p>
+        </div>
+        <div class="carousel-card">
+          <h3 class="card-title">Artisan Marketplace</h3>
+          <img src="assets/images/marketplace.png" alt="Handcrafted goods on a shelf" class="card-image">
+          <p class="card-description">A curated marketplace where certified artisans sell durable, beautifully crafted goods. Built on rigorous quality standards with branding support.</p>
+        </div>
+        <div class="carousel-card">
+          <h3 class="card-title">Repair & Restoration</h3>
+          <img src="assets/images/workers.png" alt="A person repairing a shoe" class="card-image">
+          <p class="card-description">Connect with artisans for high-quality repairs on items like shoes and clothing. Get quotes online and support the circular economy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="faq" class="section faq-section">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">
+          How do I get started with a craft? <i class="fas fa-chevron-down faq-icon"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Getting started is easy! Browse our Trade-in-a-Box kits to find a craft that interests you. Each kit comes with all the tools, materials, and step-by-step video tutorials you need to begin your journey. We recommend starting with our beginner-friendly kits.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          How do artisans become certified? <i class="fas fa-chevron-down faq-icon"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Our certification process involves a thorough review of an artisan's portfolio, technical skills, and commitment to quality craftsmanship. Applicants must demonstrate mastery of their craft. This ensures customers receive only the highest quality handmade goods.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          What is your repair process? <i class="fas fa-chevron-down faq-icon"></i>
+        </div>
+        <div class="faq-answer">
+          <p>Simply submit photos of your item through our online form. Our team will assess the repair needs and provide a quote. Once approved, you can mail your item to our facility. Our certified artisans will restore your item using traditional techniques and quality materials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="team" class="section team-section">
+    <h2 class="section-title">Meet Our Founders</h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <img src="assets/images/solo.jpg" alt="Profile of Alex Morgan" class="team-img">
+        <div class="team-info">
+          <h3 class="team-name">Solomon Nderitu</h3>
+          <div class="team-role">CEO & Co-Founder</div>
+          <p class="team-bio">Former product designer with a passion for sustainable craftsmanship. Alex started Praxis after struggling to find someone to repair his grandfather's leather boots.</p>
+        </div>
+      </div>
+      <div class="team-card">
+        <img src="assets/images/bemos.jpg" alt="Profile of Jamie Chen" class="team-img">
+        <div class="team-info">
+          <h3 class="team-name">Benson Mose</h3>
+          <div class="team-role">Head of Artisan Relations</div>
+          <p class="team-bio">Fourth-generation tailor dedicated to preserving traditional techniques for future generations.</p>
+        </div>
+      </div>
+      
+  </section>
+  <section class="brand-bar">
+    <div class="slogan-container">
+      <div class="slogan">Craftsmanship ·</div>
+      <div class="slogan">Sustainability ·</div>
+      <div class="slogan">Community ·</div>
+      <div class="slogan">Heritage ·</div>
+      <div class="slogan">Quality ·</div>
+      <div class="slogan">Craftsmanship ·</div>
+      <div class="slogan">Sustainability ·</div>
+      <div class="slogan">Community ·</div>
+    </div>
+  </section>
+  <section id="chatbot" class="section chatbot-section">
+    <h2 class="section-title">Need Help? Ask Our Bot</h2>
+    <div class="chatbot-container">
+      <div class="chat-header">Praxis Assistant</div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="message bot-message">Hello! I'm the Praxis Assistant. How can I help you today?</div>
+        <div class="message bot-message">You can ask about our products or how to get started.</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chat-input-field" placeholder="Type your message here...">
+        <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="section contact-section">
+    <h2 class="section-title">Contact Us</h2>
+    <div class="contact-container">
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required>
+          <div class="error" id="name-error">Please enter your name</div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required>
+          <div class="error" id="email-error">Please enter a valid email</div>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea id="message" required></textarea>
+          <div class="error" id="message-error">Please enter your message</div>
+        </div>
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Praxis</h3>
+        <p>Preserving craftsmanship for future generations.</p>
+        <div class="social-links">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul class="footer-links">
+          <li><a href="#">Learning Guides</a></li>
+          <li><a href="#">Community Forum</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Info</h3>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Craft St, Artisan City</li>
+          <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> info@praxis.com</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Praxis Craftsmanship Community. All rights reserved.</p>
+      <div class="visitor-count">Site Visits: <span id="visitor-count">0</span></div>
+    </div>
+  </footer>
+  <div class="theme-toggle" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
 
   <script>
-    // Toggle mobile menu
-    const toggleButton = document.getElementById('menu-toggle');
-    const navLinks = document.getElementById('navbar-links');
-    toggleButton.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // --- Hamburger Menu Logic ---
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const navbarMenu = document.getElementById('navbar-menu');
+      
+      hamburgerBtn.addEventListener('click', () => {
+          navbarMenu.classList.toggle('is-open');
+      });
+
+      // Close menu when a link is clicked
+      const menuLinks = navbarMenu.querySelectorAll('a, button');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (navbarMenu.classList.contains('is-open')) {
+                navbarMenu.classList.remove('is-open');
+            }
+        });
+      });
+      // --- End Hamburger Menu Logic ---
+        
+      // Visitor counter using localStorage
+      let visitCount = localStorage.getItem('siteVisitCount');
+      if (visitCount) {
+        visitCount = parseInt(visitCount) + 1;
+      } else {
+        visitCount = 1;
+      }
+      localStorage.setItem('siteVisitCount', visitCount);
+      document.getElementById('visitor-count').textContent = visitCount;
+
+      // Audience toggle logic
+      const toggleButtons = document.querySelectorAll('.toggle-btn');
+      const audienceContents = document.querySelectorAll('.audience-content');
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const audience = button.dataset.audience;
+          toggleButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          audienceContents.forEach(content => content.classList.remove('active'));
+          document.getElementById(`${audience}-content`).classList.add('active');
+        });
+      });
+
+      // FAQ accordion - only one can be open at a time
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(clickedItem => {
+        const question = clickedItem.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            const wasActive = clickedItem.classList.contains('active');
+
+            faqItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            if (!wasActive) {
+                clickedItem.classList.add('active');
+            }
+        });
+      });
+      
+      // Basic Chatbot placeholder functionality
+      const chatSendBtn = document.getElementById('chat-send-btn');
+      const chatInputField = document.getElementById('chat-input-field');
+      const chatMessages = document.getElementById('chat-messages');
+
+      chatSendBtn.addEventListener('click', () => {
+          const messageText = chatInputField.value.trim();
+          if (messageText) {
+              const userMessage = document.createElement('div');
+              userMessage.className = 'message user-message';
+              userMessage.textContent = messageText;
+              chatMessages.appendChild(userMessage);
+              
+              chatInputField.value = '';
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+          }
+      });
+
+      // Contact form validation
+      const contactForm = document.getElementById('contact-form');
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+        
+        const name = document.getElementById('name');
+        const nameError = document.getElementById('name-error');
+        if (name.value.trim() === '') {
+          nameError.style.display = 'block';
+          isValid = false;
+        } else {
+          nameError.style.display = 'none';
+        }
+        
+        const email = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value)) {
+          emailError.style.display = 'block';
+          isValid = false;
+        } else {
+          emailError.style.display = 'none';
+        }
+        
+        const message = document.getElementById('message');
+        const messageError = document.getElementById('message-error');
+        if (message.value.trim() === '') {
+          messageError.style.display = 'block';
+          isValid = false;
+        } else {
+          messageError.style.display = 'none';
+        }
+        
+        if (isValid) {
+          alert('Thank you for your message! We will get back to you soon.');
+          contactForm.reset();
+        }
+      });
+
+      // Theme toggle
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = themeToggle.querySelector('i');
+      const body = document.body;
+
+      const applyTheme = (theme) => {
+        if (theme === 'dark') {
+          body.classList.add('dark-theme');
+          themeIcon.classList.remove('fa-moon');
+          themeIcon.classList.add('fa-sun');
+        } else {
+          body.classList.remove('dark-theme');
+          themeIcon.classList.remove('fa-sun');
+          themeIcon.classList.add('fa-moon');
+        }
+      };
+      
+      themeToggle.addEventListener('click', function() {
+        const isDark = body.classList.contains('dark-theme');
+        if (isDark) {
+          localStorage.setItem('theme', 'light');
+          applyTheme('light');
+        } else {
+          localStorage.setItem('theme', 'dark');
+          applyTheme('dark');
+        }
+      });
+      
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      applyTheme(savedTheme);
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId.length > 1) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              const offset = 70;
+              const elementPosition = targetElement.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - offset;
+              
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+              });
+            }
+          }
+        });
+      });
     });
   </script>
 </body>
