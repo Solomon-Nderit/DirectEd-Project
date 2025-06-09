@@ -99,6 +99,15 @@
       margin: 0;
     }
 
+    .subtitle-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: top;
+      align-items: center;
+      width: 100%;
+      height: 30%;
+    }
+
     #hero-text {
       color: #f5e8e3;
       font-size: 1.2rem;
@@ -114,6 +123,45 @@
       width:30%;
       height:3rem;
     }
+
+    .subtitle-text{
+      width:90%;
+    }
+    .subtitle{
+      color: #302f2d;
+      font-size: 2rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .about-us{
+      background-color: #ddbfb4;
+    }
+
+  #title-and-logo {
+  display: flex;
+  flex-direction: row; 
+  justify-content: center; 
+  align-items: center;     
+  width: 100%;
+  padding: 40px 0 60px 0; 
+}
+
+
+#title-and-logo h2 {
+  font-size: 1.5rem;
+  color: #302f2d;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+
+#praxis-logo {
+  width: 70px;
+  height: auto;
+  margin-left: 1rem; 
+}
+
+
     /* Responsive: small screens */
     @media (max-width: 768px) {
       #menu-toggle {
@@ -148,6 +196,15 @@
         margin: 10px;
         width: calc(100% - 20px);
         text-align: center;
+      }
+
+      #title-and-logo {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 60vh;
       }
     }
   </style>
@@ -185,6 +242,40 @@
     </div>
 
       
+  </main>
+
+  <main class="about-us">
+    <div class="subtitle-container">
+      <h2 class="subtitle">
+        About Us
+      </h2>
+      <p class="subtitle-text">
+        Praxis is a community-driven platform dedicated to preserving and sharing the art of craftsmanship. 
+        We connect master artisans with those eager to learn, repair, and create, ensuring that traditional skills are passed down through generations.
+       The idea for Praxis was born from a simple, frustrating experience: trying to get a beloved pair of leather boots resolved and discovering the last local cobbler had retired. This personal search revealed a much larger problem: foundational craft skills are disappearing, leaving us reliant on a culture of disposable, mass-produced goods that fill our landfills. We saw an opportunity not just to mourn this loss, but to reverse it. Praxis was created to build a bridge between the wisdom of master craftspeople and a new generation eager to create, repair, and own things with meaning, ensuring these essential skills don't just survive, but thrive.
+
+      </p>
+    </div>
+
+    <div class="subtitle-container">
+      <h2 class="subtitle">
+        What do we do?
+    </h2>
+    <p class="subtitle-text">
+       <strong>Praxis</strong> is a comprehensive ecosystem designed to combat trhowaway culture by reviving the world of skilled
+       craft. We empower a new generation of artisans through three core offerings: "Trade-in-a-Box" kits that provide the tools and
+       master-led training to learn a craft; a Certified Artisan Marketplace where they can sell their durable, high-quality goods; and a "Repair & Restoration"
+       service that connects their skills with customers needing to mend cherished items. By seamlessly integratiing education, commerce, and service, Praxis creates
+       a sustainable community built on the value of making, owning, and preserving things that last.
+    </p>
+    </div>
+
+    <div id="title-and-logo">
+      <h2>
+        Praxis
+      </h2>
+      <img src="assets/images/Praxis Logo.png" alt="Logo" id="praxis-logo" >
+    </div>
   </main>
 
   <script>
