@@ -1,3 +1,4 @@
+* Base styles */
     :root {
       --primary: #B06548;
       --secondary: #302f2d;
@@ -368,6 +369,7 @@
       transform: rotate(180deg);
     }
 
+    /* Team section */
     .team-section {
       background-color: var(--card-bg);
     }
@@ -762,8 +764,9 @@
       }
       
       #hamburger-btn {
-        display: block; 
+        display: block; /* Show the button on mobile */
       }
+      /* --- End Hamburger Menu Styles --- */
     }
 
     @media (max-width: 576px) {
